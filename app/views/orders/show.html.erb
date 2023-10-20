@@ -4,8 +4,37 @@
     <h1>Order #<%= @order.id %></h1>
   </header>
 
+  <div class="order-details">
+    <h4>Order Details</h4>
+
+    <% @order.line_items.each do |line_item| %>
+      <div class="line-item">
+        <div class="row">
+          <div class="col-md-3">
+            <%= image_tag line_item.product.image_url, class: 'img-thumbnail' %>
+          </div>
+          <div class="col-md-6">
+            <h4><%= line_item.product.name %></h4>
+            <p><%= line_item.product.description %></p>
+          </div>
+          <div class="col-md-3">
+            <p><strong>Quantity:</strong> <%= line_item.quantity %></p>
+            <p><strong>Total:</strong> <%= number_to_currency(line_item.total_price) %></p>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+
+
+
+
   <div class="order-summary jumbotron">
     <h4>Thank you for your order!</h4>
+    
+    <p>Email: <%= @order.email %></p>
+
+
   </div>
 
   <%= link_to "Continue Shopping", root_path, class: 'btn btn-lg btn-primary' %>
